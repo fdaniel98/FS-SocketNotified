@@ -80,8 +80,6 @@ class EditFacturaCliente extends ParentEditFactura
                 'neto' => $invoice->total,
                 'netosindto' => $invoice->netosindto,
                 'codcliente' => $invoice->codcliente,
-                //'direccionorden' => "Calle Francisco moreno, #15, Ensanche Naco Torre La quinta",
-               // 'direccionId' => '1946',
                 'codpago' => $invoice->codpago,
                 'nombrecliente' => $invoice->nombrecliente,
                 'tipoorden' => 'Delivery',
@@ -90,8 +88,6 @@ class EditFacturaCliente extends ParentEditFactura
                 'items' => $items,
                 'idfactura' => $invoice->idfactura
             ];
-
-            var_dump(json_encode($body));
 
             $res = self::$client->request('POST', '/api/v1/orders/fromfacturascript', [
                 'headers' => ['Authorization' => 'Bearer ' . self::$token],
