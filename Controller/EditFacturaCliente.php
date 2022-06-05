@@ -43,8 +43,8 @@ class EditFacturaCliente extends ParentEditFactura
             case 'save-paid':
                 $this->handlePaidNotification($isPaidOnString);
                 break;
-            case 'save-doc':
             case 'save-document':
+            case 'save-doc':
                 $this->handleOrderCreation();
                 break;
         }
@@ -54,6 +54,11 @@ class EditFacturaCliente extends ParentEditFactura
     {
         try {
             $code = $this->request->get('code');
+
+            if (empty($code)) {
+                $model = $this->getModel(true);
+                $code = $model->primaryColumnValue();
+            }
 
             $invoice = new FacturaCliente();
             $invoice->loadFromCode($code);
