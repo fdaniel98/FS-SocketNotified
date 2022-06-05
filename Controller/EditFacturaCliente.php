@@ -51,6 +51,7 @@ class EditFacturaCliente extends ParentEditFactura
     private function handleOrderCreation()
     {
         try {
+            var_dump("error: ");
             $code = $this->request->get('code');
 
             $invoice = new FacturaCliente();
