@@ -114,7 +114,7 @@ class EditFacturaCliente extends ParentEditFactura
             else
             {
                 $log = new LogMessage();
-                $log->message = "code: " . $res->getStatusCode()
+                $log->message = "code: " . $res->getStatusCode();
                 $log->level = 'error';
                 $log->channel = 'prod';
                 $log->save();
