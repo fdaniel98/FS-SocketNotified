@@ -94,8 +94,6 @@ class EditFacturaCliente extends ParentEditFactura
                 'idfactura' => $invoice->idfactura
             ];
 
-            var_dump(json_encode($body));
-
             $res = self::$client->request('POST', '/api/v1/orders/fromfacturascript', [
                 'headers' => ['Authorization' => 'Bearer ' . self::$token],
                 'json' => $body
@@ -108,6 +106,7 @@ class EditFacturaCliente extends ParentEditFactura
                 $res = json_decode($res, true);
 
                 if ($res && array_key_exists('success', $res)) {
+                    var_dump(json_encode( $res['order']['orderNumber']));
                     $invoice->ordenId = $res['order']['orderNumber'];
                     $invoice->save();
                 } else {
