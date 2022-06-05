@@ -91,6 +91,8 @@ class EditFacturaCliente extends ParentEditFactura
                 'idfactura' => $invoice->idfactura
             ];
 
+            var_dump(json_encode($body));
+
             $res = self::$client->request('POST', '/api/v1/orders/fromfacturascript', [
                 'headers' => ['Authorization' => 'Bearer ' . self::$token],
                 'json' => $body
