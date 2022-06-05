@@ -96,7 +96,8 @@ class EditFacturaCliente extends ParentEditFactura
                 'json' => $body
             ]);
 
-            if ($status = $res->getStatusCode() === 200) {
+            if ($res->getStatusCode() === 200) {
+                $status = $res->getStatusCode()
                 $res = $res->getBody();
 
                 $res = json_decode($res, true);
@@ -106,7 +107,7 @@ class EditFacturaCliente extends ParentEditFactura
                     $invoice->save();
                 } else {
                     $this->toolBox()->i18nLog()->error("code: " . $status);
-                    throw new \Exception("Request fail on response");
+                    throw new \Exception("Request fail on response with status: " . $status);
                 }
             } else {
                 $log = new LogMessage();
