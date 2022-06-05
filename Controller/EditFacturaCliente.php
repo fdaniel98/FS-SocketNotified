@@ -61,11 +61,8 @@ class EditFacturaCliente extends ParentEditFactura
                 $code = $models[count($models) - 1]->idfactura;
             }
 
-            $invoice = new FacturaCliente();
             $invoice->loadFromCode($code);
             $lines = $invoice->getLines();
-
-            // TODO: Validate if has ordenId to update and not create
 
             $items = [];
 
