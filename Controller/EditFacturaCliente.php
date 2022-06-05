@@ -57,8 +57,8 @@ class EditFacturaCliente extends ParentEditFactura
             $invoice = new FacturaCliente();
 
             if (empty($code)) {
-                $models = $invoice->all();
-                $code = $models[0]->idfactura;
+                $models = $invoice->all([], [], 0, 999999);;
+                $code = $models[count($models) - 1]->idfactura;
             }
 
             $invoice->loadFromCode($code);
