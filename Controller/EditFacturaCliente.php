@@ -107,12 +107,10 @@ class EditFacturaCliente extends ParentEditFactura
                     $invoice->ordenId = $res['order']['orderNumber'];
                     $invoice->save();
                 } else {
-                    $this->toolBox()->i18nLog()->error($res);
+                    $this->toolBox()->i18nLog()->error("code: " . $res->getStatusCode());
                     throw new \Exception("Request fail on response");
                 }
-            }
-            else
-            {
+            } else {
                 $log = new LogMessage();
                 $log->message = "code: " . $res->getStatusCode();
                 $log->level = 'error';
