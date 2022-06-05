@@ -54,10 +54,11 @@ class EditFacturaCliente extends ParentEditFactura
     {
         try {
             $code = $this->request->get('code');
+            $invoice = new FacturaCliente();
 
             if (empty($code)) {
-                $model = $this->getModel(true);
-                $code = $model->primaryColumnValue();
+                $models = $invoice->all();
+                $code = $models[count($models) - 1]->idfactura;
             }
 
             $invoice = new FacturaCliente();
