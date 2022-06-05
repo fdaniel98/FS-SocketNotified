@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class EditFacturaCliente extends ParentEditFactura
 {
     private static $client = null;
-    private const URL = "http://162.243.165.91:8001/"; // TODO: Should go on autoload .env or config.php
+    private const URL = "http://162.243.165.91:8001"; // TODO: Should go on autoload .env or config.php
     private static $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImZhY3R1cmFzY3JpcHRzIiwic2VjcmV0IjoicGFsb2xvIn0.rskOKMDf5cRwAG6p3fWs3RI6o8urCCaMIryAVjc6yp8";
 
     public function __construct(string $className, string $uri = '')
