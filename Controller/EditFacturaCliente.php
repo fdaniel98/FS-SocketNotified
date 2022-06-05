@@ -96,17 +96,31 @@ class EditFacturaCliente extends ParentEditFactura
             $res = self::$client->request('POST', '/api/v1/orders/fromfacturascript', [
                 'headers' => ['Authorization' => 'Bearer ' . self::$token],
                 'json' => $body
-            ])->getBody();
+            ]);
 
-            $res = json_decode($res, true);
+            if ($res->getStatusCode() === 200) {
+                $res = $res->getBody();
 
-            if ($res && array_key_exists('success', $res)) {
-                $invoice->ordenId = $res['order']['orderNumber'];
-                $invoice->save();
-            } else {
-                $this->toolBox()->i18nLog()->error($res);
-                throw new \Exception("Request fail on response");
+                $res = json_decode($res, true);
+
+                if ($res && array_key_exists('success', $res)) {
+                    $invoice->ordenId = $res['order']['orderNumber'];
+                    $invoice->save();
+                } else {
+                    $this->toolBox()->i18nLog()->error($res);
+                    throw new \Exception("Request fail on response");
+                }
             }
+            else
+            {
+                $log = new LogMessage();
+                $log->message = "code: " . $res->getStatusCode()
+                $log->level = 'error';
+                $log->channel = 'prod';
+                $log->save();
+            }
+
+
         } catch (\Exception $e) {
             $log = new LogMessage();
             $log->message = $e->getMessage();
