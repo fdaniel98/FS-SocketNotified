@@ -43,10 +43,8 @@ class EditFacturaCliente extends ParentEditFactura
             case 'save-paid':
                 $this->handlePaidNotification($isPaidOnString);
                 break;
-            case 'save-document':
-                $this->handleOrderCreation();
-                break;
             case 'save-doc':
+            case 'save-document':
                 $this->handleOrderCreation();
                 break;
         }
@@ -98,7 +96,7 @@ class EditFacturaCliente extends ParentEditFactura
                 'json' => $body
             ]);
 
-            if ($res->getStatusCode() === 200) {
+            if ($status = $res->getStatusCode() === 200) {
                 $res = $res->getBody();
 
                 $res = json_decode($res, true);
@@ -107,7 +105,7 @@ class EditFacturaCliente extends ParentEditFactura
                     $invoice->ordenId = $res['order']['orderNumber'];
                     $invoice->save();
                 } else {
-                    $this->toolBox()->i18nLog()->error("code: " . $res->getStatusCode());
+                    $this->toolBox()->i18nLog()->error("code: " . $status);
                     throw new \Exception("Request fail on response");
                 }
             } else {
