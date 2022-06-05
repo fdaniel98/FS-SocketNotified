@@ -97,7 +97,7 @@ class EditFacturaCliente extends ParentEditFactura
             ]);
 
             if ($res->getStatusCode() === 200) {
-                $status = $res->getStatusCode()
+                $status = $res->getStatusCode();
                 $res = $res->getBody();
 
                 $res = json_decode($res, true);
