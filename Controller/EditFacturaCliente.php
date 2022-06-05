@@ -100,9 +100,7 @@ class EditFacturaCliente extends ParentEditFactura
 
             $res = json_decode($res, true);
 
-            var_dump("res: " . $res);
-
-            if (array_key_exists('success', $res)) {
+            if ($res && array_key_exists('success', $res)) {
                 $invoice->ordenId = $res['order']['orderNumber'];
                 $invoice->save();
             } else {
