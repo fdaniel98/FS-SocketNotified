@@ -38,9 +38,13 @@ class EditFacturaCliente extends ParentEditFactura
     {
         $isPaidOnString = filter_var(intval($this->request->request->get('selectedLine')), FILTER_VALIDATE_BOOLEAN);
 
+        // TODO: Create a version pooling (2021, 2022, etc...)
         switch ($action) {
             case 'save-paid':
                 $this->handlePaidNotification($isPaidOnString);
+                break;
+            case 'save-document':
+                $this->handleOrderCreation();
                 break;
             case 'save-doc':
                 $this->handleOrderCreation();
@@ -51,7 +55,6 @@ class EditFacturaCliente extends ParentEditFactura
     private function handleOrderCreation()
     {
         try {
-            var_dump("error: ");
             $code = $this->request->get('code');
 
             $invoice = new FacturaCliente();
