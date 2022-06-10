@@ -146,12 +146,12 @@ class EditFacturaCliente extends ParentEditFactura
             if ($isUpdate) {
                 $codigo = $invoice->codigo;
                 $res = self::$client->request('POST', "/api/v1/orders/${$codigo}/fromfacturascript", [
-                    'headers' => ['Authorization' => 'Bearer ' . self::$token],
+                    'headers' => ['Authorization' => 'Bearer '.self::$token],
                     'json' => $body,
                 ]);
             } else {
                 $res = self::$client->request('POST', '/api/v1/orders/fromfacturascript', [
-                    'headers' => ['Authorization' => 'Bearer ' . self::$token],
+                    'headers' => ['Authorization' => 'Bearer '.self::$token],
                     'json' => $body,
                 ]);
             }
@@ -169,12 +169,12 @@ class EditFacturaCliente extends ParentEditFactura
                     // Update orden
                     $this->updateStatusOrden($invoice->codigo, $this->request->get('status'));
                 } else {
-                    $this->toolBox()->i18nLog()->error("code: " . $status);
-                    throw new Exception("Request fail on response with status: " . $status);
+                    $this->toolBox()->i18nLog()->error("code: ".$status);
+                    throw new Exception("Request fail on response with status: ".$status);
                 }
             } else {
                 $log = new LogMessage();
-                $log->message = "code: " . $res->getStatusCode();
+                $log->message = "code: ".$res->getStatusCode();
                 $log->level = 'error';
                 $log->channel = 'prod';
                 $log->save();
@@ -274,4 +274,5 @@ class EditFacturaCliente extends ParentEditFactura
             $this->toolBox()->i18nLog()->error($e->getMessage());
         }
     }
+
 }

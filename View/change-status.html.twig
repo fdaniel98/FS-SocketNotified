@@ -3,6 +3,7 @@
     <form action="{{ fsc.url() }}" method="post" name="facturaStatus">
         <input type="hidden" name="action" value="change-status"/>
         <input type="hidden" name="code" value="{{ fsc.model.idfactura }}"/>
+        <input type="hidden" name="orden" value="{{ fsc.model.codigo }}"/>
         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
         <div class="container-fluid mb-2">
             <div class="row align-content-center">
