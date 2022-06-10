@@ -4,4 +4,8 @@
         <name>ordenId</name>
         <type>text</type>
     </column>
+    <column>
+        <name>estadoPedido</name>
+        <type>text</type>
+    </column>
 </table>

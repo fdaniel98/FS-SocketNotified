@@ -12,4 +12,11 @@ class FacturaCliente
             return $this->ordenId;
         };
     }
+
+    public function estadoPedido(): Closure
+    {
+        return function () {
+            return $this->estadoPedido;
+        };
+    }
 }

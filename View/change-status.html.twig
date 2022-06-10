@@ -1,0 +1,33 @@
+{% block body %}
+    {% set change = fsc.ChangeStatusOrden() %}
+    <form action="{{ fsc.url() }}" method="post" name="facturaStatus">
+        <input type="hidden" name="action" value="change-status"/>
+        <input type="hidden" name="code" value="{{ fsc.model.idfactura }}"/>
+        <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
+        <div class="container-fluid mb-2">
+            <div class="row align-content-center">
+                <div class="col-6">
+                    <div class="form-group">
+                        <strong>
+                            Estado del pedido
+                        </strong>
+                        <select name="status" class="form-control">
+                            <option value="Preparando" selected="">Preparando</option>
+                            <option value="Orden lista"
+                            >Orden lista
+                            </option>
+                            <option value="En camino">En camino</option>
+                            <option value="En espera de validación">En espera de validación</option>
+                            <option value="Entregada">Entregada</option>
+                            <option value="En espera de retiro">En espera de retiro</option>
+                            <option value="Asignada a delivery">Asignada a delivery</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Actualizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
