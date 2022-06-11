@@ -1,9 +1,30 @@
+<script type="text/javascript">
+    var url = "{{ fsc.url() }}";
+        $(document).ready(function () {
+
+            function getUrlVars() {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+
+            const values = getUrlVars();
+            $("#code").val(values.code)
+            $("#change").attr("action", url + "?code=" + values.code);
+        })
+</script>
+
 {% set model = fsc.getCurrentView().model %}
 {% block body %}
 
-    <form action="{{ fsc.url() }}" method="post" name="facturaStatus">
+    <form id="change" method="post" name="facturaStatus">
         <input type="hidden" name="action" value="change-status"/>
-        <input type="hidden" name="code" value="{{ model.primaryColumnValue() }}"/>
+        <input id="code" type="hidden" name="code"/>
         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
         <div class="container-fluid mb-2">
             <div class="row align-content-center">
