@@ -218,7 +218,8 @@ class EditFacturaCliente extends ParentEditFactura
             $status = $this->request->get('status');
 
             $res = self::$client->put("/api/v1/orders/${orden}/fromfacturascript", [
-                'status' => $status,
+                'headers' => ['Authorization' => 'Bearer '.self::$token],
+                'json' => ['status' => $status],
             ]);
 
             if ($res->getStatusCode() === 200) {
@@ -266,7 +267,9 @@ class EditFacturaCliente extends ParentEditFactura
             $invoice->loadFromCode($code);
             $orden = $invoice->codigo;
 
-            $res = self::$client->delete("/api/v1/orders/${orden}/fromfacturascript");
+            $res = self::$client->delete("/api/v1/orders/${orden}/fromfacturascript", [
+                'headers' => ['Authorization' => 'Bearer '.self::$token],
+            ]);
         } catch (Exception $e) {
             $log = new LogMessage();
             $log->message = $e->getMessage();
