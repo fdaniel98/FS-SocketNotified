@@ -209,7 +209,7 @@ class EditFacturaCliente extends ParentEditFactura
             $code = $this->request->get('code');
 
             if (empty($code)) {
-                $code = $this->codeModel->code;
+                $code = $this->request->query->get('code');
             }
 
             $invoice = new FacturaCliente();
@@ -259,7 +259,7 @@ class EditFacturaCliente extends ParentEditFactura
             $code = $this->request->get('code');
 
             if (empty($code)) {
-                $code = $this->codeModel->code;
+                $code = $this->request->query->get('code');
             }
 
             $invoice = new FacturaCliente();
