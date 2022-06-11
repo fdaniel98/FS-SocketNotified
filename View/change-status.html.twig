@@ -1,8 +1,9 @@
+{% set model = fsc.getCurrentView().model %}
 {% block body %}
-    {% set change = fsc.ChangeStatusOrden() %}
+
     <form action="{{ fsc.url() }}" method="post" name="facturaStatus">
         <input type="hidden" name="action" value="change-status"/>
-        <input type="hidden" name="code" value="{{ fsc.request.query('code') }}"/>
+        <input type="hidden" name="code" value="{{ model.primaryColumnValue() }}"/>
         <input type="hidden" name="multireqtoken" value="{{ fsc.multiRequestProtection.newToken() }}"/>
         <div class="container-fluid mb-2">
             <div class="row align-content-center">
