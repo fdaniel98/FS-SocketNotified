@@ -207,6 +207,11 @@ class EditFacturaCliente extends ParentEditFactura
     {
         try {
             $code = $this->request->get('code');
+
+            if (empty($code)) {
+                $code = $this->getModel()->primaryColumnValue();
+            }
+
             $invoice = new FacturaCliente();
             $invoice->loadFromCode($code);
             $orden = $invoice->codigo;
@@ -232,17 +237,6 @@ class EditFacturaCliente extends ParentEditFactura
     }
 
     /**
-     * @param  bool  $isPaid
-     * @throws GuzzleException
-     */
-    private function handlePaidNotification(bool $isPaid)
-    {
-        self::$client->post('/api/v1/orders', [
-
-        ]);
-    }
-
-    /**
      * @param $code
      * @return string
      */
@@ -256,10 +250,18 @@ class EditFacturaCliente extends ParentEditFactura
         }
     }
 
+    /**
+     * @throws GuzzleException
+     */
     private function deleteFactura()
     {
         try {
             $code = $this->request->get('code');
+
+            if (empty($code)) {
+                $code = $this->getModel()->primaryColumnValue();
+            }
+
             $invoice = new FacturaCliente();
             $invoice->loadFromCode($code);
             $orden = $invoice->codigo;
