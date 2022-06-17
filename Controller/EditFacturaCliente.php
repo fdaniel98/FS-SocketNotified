@@ -81,6 +81,11 @@ class EditFacturaCliente extends ParentEditFactura
                 $this->handlePaidNotification($isPaidOnString);
                 break;
             case 'delete-document':
+                $this->deleteFactura();
+                break;
+            case 'delete':
+                $this->deleteFactura();
+                break;
             case 'delete-doc':
                 $this->deleteFactura();
                 break;
@@ -88,6 +93,8 @@ class EditFacturaCliente extends ParentEditFactura
                 $this->updateStatusOrden();
                 break;
             case 'save-document':
+                $this->handleOrderCreation();
+                break;
             case 'save-doc':
                 $this->handleOrderCreation();
                 break;
