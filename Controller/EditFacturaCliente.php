@@ -54,8 +54,19 @@ class EditFacturaCliente extends ParentEditFactura
      */
     protected function execPreviousAction($action): bool
     {
+        // TO AVOID DELETE FIRST
+        $code = $this->request->get('code');
+
+        if (empty($code)) {
+            $code = $this->request->query->get('code');
+        }
+
+        $invoice = new FacturaCliente();
+        $invoice->loadFromCode($code);
+        $orden = $invoice->codigo;
+
         $res = parent::execPreviousAction($action);
-        $this->notifyForAction($action);
+        $this->notifyForAction($action, $orden);
         return $res;
     }
 
@@ -71,23 +82,20 @@ class EditFacturaCliente extends ParentEditFactura
      * @param  string  $action
      * @throws GuzzleException
      */
-    private function notifyForAction(string $action): void
+    private function notifyForAction(string $action, $orden): void
     {
         $isPaidOnString = filter_var(intval($this->request->request->get('selectedLine')), FILTER_VALIDATE_BOOLEAN);
 
         // TODO: Create a version pooling (2021, 2022, etc...)
         switch ($action) {
-            case 'save-paid':
-                $this->handlePaidNotification($isPaidOnString);
-                break;
             case 'delete-document':
-                $this->deleteFactura();
+                $this->deleteFactura($orden);
                 break;
             case 'delete':
-                $this->deleteFactura();
+                $this->deleteFactura($orden);
                 break;
             case 'delete-doc':
-                $this->deleteFactura();
+                $this->deleteFactura($orden);
                 break;
             case 'change-status':
                 $this->updateStatusOrden();
@@ -261,19 +269,9 @@ class EditFacturaCliente extends ParentEditFactura
     /**
      * @throws GuzzleException
      */
-    private function deleteFactura()
+    private function deleteFactura($orden)
     {
         try {
-            $code = $this->request->get('code');
-
-            if (empty($code)) {
-                $code = $this->request->query->get('code');
-            }
-
-            $invoice = new FacturaCliente();
-            $invoice->loadFromCode($code);
-            $orden = $invoice->codigo;
-
             $res = self::$client->delete("/api/v1/orders/${orden}/fromfacturascript", [
                 'headers' => ['Authorization' => 'Bearer '.self::$token],
             ]);
